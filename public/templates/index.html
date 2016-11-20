@@ -17,16 +17,22 @@
       </div>
     </nav>
 
-    <h1 class="number">Call this Toll Free Number 206-922-8264</h1>
+    <h1 class="number"><span>Call our Toll-Free Number</span><br />206-922-8264</h1>
 
     <div class="container">
       <div class="row">
 
-        <center><input class="form-control" placeholder="Search" name="srch-term" id="srch-term" type="text"></center>
-        <br>
+        <center>
+          <input class="form-control" placeholder="Keyword Filter" name="srch-term" id="srch-term" type="text" 
+          ng-change="search($event)"
+          ng-model="searchText">
+        </center>
+        
+        <hr />
         <div class="all-recordings">
           <div class="col-md-10">
-            <div class="recording" ng-repeat="recording in recordings track by recording.CallSid">
+
+            <div class="recording {{recording.show ? 'show':''}}" ng-repeat="recording in recordings track by recording.CallSid">
               <div class="text">  
                 <span class="bs-checkbox "><input data-index="2" name="btSelectItem" type="checkbox"></span>
                 {{recording.text}}
@@ -38,12 +44,16 @@
                 <i>{{recording.recTimeInSeconds}} seconds</i>
               </div>
               <div class="play-voice" id="message-list">
-                <button type="button" class="btn btn-primary">Play</button>
+                <audio src="{{recording.recUrlTrusted}}">
+                  Your browser does not support the <code>audio</code> element.
+                </audio>
+                <button type="button" class="btn btn-primary play-pause" ng-click="playPause($index, $event)" >Play</button>
                 <button type="button" class="btn btn-danger">Delete</button>
                 <button type="button" class="btn btn-success">Call</button>
                 <button type="button" class="btn btn-default">Block</button>
               </div>
             </div>
+
           </div>
         </div>
       </div>
