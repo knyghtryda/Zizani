@@ -13,14 +13,11 @@
           <ul class="nav navbar-nav navbar-right">
             <li><a href="#">Dashboard</a></li>
           </ul>
-          <form class="navbar-form navbar-right">
-            <input type="text" class="form-control" placeholder="Search...">
-          </form>
         </div>
       </div>
     </nav>
 
-    <h1 class="number">Call this Toll Free Number 555-555-5555</h1>
+    <h1 class="number">Call this Toll Free Number 206-922-8264</h1>
 
     <div class="container">
       <div class="row">
@@ -36,7 +33,9 @@
               </div>
               <br>
               <div class="caller-id">
-                <i>602-683-5886 Pheonix, AZ</i>
+                <i>{{recording.ptn}}</i> <bold>| </bold>
+                <i>{{recording.createdAtFormatted}}</i> <bold>| </bold>
+                <i>{{recording.recTimeInSeconds}} seconds</i>
               </div>
               <div class="play-voice" id="message-list">
                 <button type="button" class="btn btn-primary">Play</button>

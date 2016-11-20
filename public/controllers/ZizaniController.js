@@ -24,6 +24,11 @@ angular.module('zizaniApp')
 
         var currentUID;
 
+        function parseTheData(data){
+          data.createdAtFormatted = moment(data.createdAt).format('hh:mm:ss a');
+          return data;
+        }
+
         function startDatabaseQueries() {
           console.log("start Database Queries");
            
@@ -31,15 +36,17 @@ angular.module('zizaniApp')
            var fetchMessages = function(postsRef) {
             postsRef.on('child_added', function(data) {
               console.log(data.key, data.val());
-              $scope.recordings.unshift(data.val());
+              var parsedData = parseTheData(data.val());
+              $scope.recordings.unshift(parsedData);
               $scope.$apply();
             });
             postsRef.on('child_changed', function(data) {
-              console.log('newdata', data);
               var recordingIdx = _.findIndex($scope.recordings,{CallSid: data.val().CallSid});
-              console.log(recordingIdx);
               if(recordingIdx > -1){
-                $scope.recordings[recordingIdx] = data.val();
+                
+                var parsedData = parseTheData(data.val());
+                $scope.recordings[recordingIdx] = parsedData;
+                // $scope.recordings.unshift(parsedData);
                 $scope.$apply();
               } else {
                 console.error('NO RECORDING??', recordingIdx);
