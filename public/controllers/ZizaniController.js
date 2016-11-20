@@ -48,12 +48,15 @@ angular.module('zizaniApp')
 
           // iterate over recordings and update each one
           $scope.recordings.forEach(function(recording){
-            if(!text.length || recording.text.toLowerCase().indexOf(text.toLowerCase()) > -1){
+            if(!text.length || 
+              recording.text.toLowerCase().indexOf(text.toLowerCase()) > -1 ||
+              recording.watsonText.toLowerCase().indexOf(text.toLowerCase()) > -1){
               recording.show = true;
             } else {
               recording.show = false;
             }
           });
+          // $scope.$apply();
           
         }
 
@@ -61,6 +64,13 @@ angular.module('zizaniApp')
         function parseTheData(data){
           data.recUrlTrusted = $sce.trustAsResourceUrl(data.recUrl);
           data.createdAtFormatted = moment(data.createdAt).format('hh:mm:ss a');
+
+          data.transcribed = false;
+          if(data.text || data.watsonText){
+            data.transcribed = true;
+          }
+
+          console.log('Updated Obj:', data)
           return data;
         }
 
@@ -70,11 +80,11 @@ angular.module('zizaniApp')
            var messagesRef = firebase.database().ref('Contest1').limitToLast(100);
            var fetchMessages = function(postsRef) {
             postsRef.on('child_added', function(data) {
-              console.log(data.key, data.val());
+              // console.log(data.key, data.val());
               var parsedData = parseTheData(data.val());
               $scope.recordings.unshift(parsedData);
-              $scope.$apply();
               $scope.search();
+              $scope.$apply();
             });
             postsRef.on('child_changed', function(data) {
               var recordingIdx = _.findIndex($scope.recordings,{CallSid: data.val().CallSid});
@@ -82,9 +92,8 @@ angular.module('zizaniApp')
                 
                 var parsedData = parseTheData(data.val());
                 $scope.recordings[recordingIdx] = parsedData;
-                // $scope.recordings.unshift(parsedData);
-                $scope.$apply();
                 $scope.search();
+                $scope.$apply();
               } else {
                 console.error('NO RECORDING??', recordingIdx);
               }
