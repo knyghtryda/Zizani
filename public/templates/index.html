@@ -27,11 +27,29 @@
           ng-change="search($event)"
           ng-model="searchText">
         </center>
-        
-        <hr />
+          <br>
+          <div class="col-md-4">
+            <div class="checkbox">
+              <h3>Emotions:</h3>
+              <label><input type="checkbox" value="">Anger</label>
+              <label><input type="checkbox" value="">Disgust</label>
+              <label><input type="checkbox" value="">Fear</label>
+              <label><input type="checkbox" value="">Joy</label>
+              <label><input type="checkbox" value="">Sadness</label>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="checkbox">
+              <h3>Sentiment:</h3>
+              <label><input type="checkbox" value="">Positive</label>
+              <label><input type="checkbox" value="">Negative</label>
+              <label><input type="checkbox" value="">Neutral</label>
+            </div>
+          </div>
+
         <div class="all-recordings">
           <div class="col-md-10">
-
+          <hr/>
             <div class="recording {{recording.show ? 'show':''}}" ng-repeat="recording in recordings track by recording.CallSid">
               <div class="text">  
                 <span class="bs-checkbox "><input data-index="2" name="btSelectItem" type="checkbox"></span>
