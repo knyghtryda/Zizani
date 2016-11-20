@@ -103,3 +103,24 @@ body {
   display: inline-block;
   border-radius: 50%;
 }
+
+.number {
+  text-align: center;
+  padding-top: 1em;
+  padding-bottom: 2em;
+}
+.recording {
+  padding-bottom: 4em;
+  padding-left: 2em;
+}
+
+.btn {
+  margin-top: 11px;
+}
+
+.all-recordings {
+  padding-left: 11em;
+}
+.form-control {
+  width: 67%;
+}

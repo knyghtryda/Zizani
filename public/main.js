@@ -36,6 +36,9 @@ function startDatabaseQueries() {
       //console.log(containerElement.firstChild);
       containerElement.insertBefore(
         createPostElement(data.key, data.val().ptn, data.val().text), containerElement.firstChild);
+
+      // $scope.recordings.push(data.val());
+
     });
    };
    fetchMessages(messagesRef, messageList);
